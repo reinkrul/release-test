@@ -38,7 +38,7 @@ jobs:
           echo "Commit: ${{ steps.version.outputs.git_commit }}"
           echo "Branch: ${{ steps.version.outputs.git_branch }}"
           echo "Version: ${{ steps.version.outputs.git_version }}"
-          echo "This tag: ${{ github.event.tag_name }}"
+          echo "This tag: ${{ github.event.release.tag_name }}"
 
       - name: Set up Go
         uses: actions/setup-go@v5
@@ -52,5 +52,5 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release upload ${{ github.event.tag_name }} test-linux-${{ matrix.arch }}
+          gh release upload ${{ github.event.release.tag_name }} test-linux-${{ matrix.arch }}
           
