@@ -31,14 +31,13 @@ jobs:
         run: |
           echo "git_commit=$(echo ${GITHUB_SHA})" >> $GITHUB_OUTPUT
           echo "git_branch=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_OUTPUT
-          echo "git_version=$(git name-rev --tags --name-only $(git rev-parse HEAD))" >> $GITHUB_OUTPUT
+          echo "git_version=${{github.event.release.tag_name}}" >> $GITHUB_OUTPUT
 
       - name: Print version params
         run: |
           echo "Commit: ${{ steps.version.outputs.git_commit }}"
           echo "Branch: ${{ steps.version.outputs.git_branch }}"
           echo "Version: ${{ steps.version.outputs.git_version }}"
-          echo "This tag: ${{ github.event.release.tag_name }}"
 
       - name: Set up Go
         uses: actions/setup-go@v5
